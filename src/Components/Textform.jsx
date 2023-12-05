@@ -4,16 +4,32 @@ export default function Textform(props) {
   const handleUpClick = () => {
     let newText = text.toUpperCase();
     setText(newText);
+    props.showAlert("Converted to Uppercase!", "success");
   };
 
   const handleLoClick = () => {
     let newText = text.toLowerCase();
     setText(newText);
+    props.showAlert("Converted to Lowercase!", "success");
   };
 
   const handleClearClick = () => {
-    let newText = text.toLowerCase();
-    setText("");
+    let newText = "";
+    setText(newText);
+    props.showAlert("Text Cleared", "success");
+  };
+
+  const handleCopy = () => {
+    let text = document.getElementById("mybox");
+    text.select();
+    navigator.clipboard.writeText(text.value);
+    props.showAlert("Copied To Clipboard", "success");
+  };
+
+  const handleExtraSpaces = () => {
+    let newText = text.split(/[  ]+/);
+    setText(newText.join(" "));
+    props.showAlert("Removed Extra Spaces From Text" , "success");
   };
 
   const handleOnChange = (event) => {
@@ -24,28 +40,79 @@ export default function Textform(props) {
 
   return (
     <>
-      <div className="container my-4">
+      <div
+        className="container my-4"
+        style={{ color: props.mode === "dark" ? "white" : "black" }}
+      >
         <h1>{props.heading}</h1>
         <div className="mb-3">
           <textarea
             className="form-control"
+            style={{
+              backgroundColor: props.mode === "dark" ? "black" : "white",
+              color: props.mode === "dark" ? "white" : "black",
+            }}
             id="mybox"
             rows="8"
             value={text}
             onChange={handleOnChange}
           ></textarea>
         </div>
-        <button className="btn btn-primary mx-2" onClick={handleUpClick}>
+        <button
+          style={{
+            backgroundColor: props.mode === "dark" ? "white" : "black",
+            color: props.mode === "dark" ? "black" : "white",
+          }}
+          className="btn btn-light mx-2"
+          onClick={handleUpClick}
+        >
           Convert to Uppercase
         </button>
-        <button className="btn btn-primary mx-2" onClick={handleLoClick}>
+        <button
+          style={{
+            backgroundColor: props.mode === "dark" ? "white" : "black",
+            color: props.mode === "dark" ? "black" : "white",
+          }}
+          className="btn btn-light mx-2"
+          onClick={handleLoClick}
+        >
           Convert to Lowercase
         </button>
-        <button className="btn btn-primary mx-2" onClick={handleClearClick}>
+        <button
+          style={{
+            backgroundColor: props.mode === "dark" ? "white" : "black",
+            color: props.mode === "dark" ? "black" : "white",
+          }}
+          className="btn btn-light mx-2"
+          onClick={handleClearClick}
+        >
           Convert to Clear Text
         </button>
+        <button
+          style={{
+            backgroundColor: props.mode === "dark" ? "white" : "black",
+            color: props.mode === "dark" ? "black" : "white",
+          }}
+          className="btn btn-light mx-2"
+          onClick={handleCopy}
+        >
+          Convert to Copy Text
+        </button>
+        <button
+          style={{
+            backgroundColor: props.mode === "dark" ? "white" : "black",
+            color: props.mode === "dark" ? "black" : "white",
+          }}
+          className="btn btn-light mx-2"
+          onClick={handleExtraSpaces}
+        >
+          Remove Extra Spaces
+        </button>
       </div>
-      <div className="container my-4">
+      <div
+        className="container my-4"
+        style={{ color: props.mode === "dark" ? "white" : "black" }}
+      >
         <h2>Your Text Summary</h2>
         <p>
           {text.split(" ").length} Words and {text.length} Characters
