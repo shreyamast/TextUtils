@@ -4,32 +4,48 @@ export default function Textform(props) {
   const handleUpClick = () => {
     let newText = text.toUpperCase();
     setText(newText);
-    props.showAlert("Converted to Uppercase!", "success");
+    if (!text.trim()) {
+      props.showAlert("Please write something!", "danger");
+    } else {
+      props.showAlert("Converted to Uppercase!", "success");
+    }
   };
 
   const handleLoClick = () => {
     let newText = text.toLowerCase();
     setText(newText);
-    props.showAlert("Converted to Lowercase!", "success");
+    if (!text.trim()) {
+      props.showAlert("Please write something!", "danger");
+    } else {
+      props.showAlert("Converted to Lowercase!", "success");
+    }
   };
 
   const handleClearClick = () => {
     let newText = "";
     setText(newText);
-    props.showAlert("Text Cleared", "success");
+    if (!text.trim()) {
+      props.showAlert("Please write something!", "danger");
+    } else {
+      props.showAlert("Text Cleared!", "success");
+    }
   };
 
   const handleCopy = () => {
     let text = document.getElementById("mybox");
     text.select();
     navigator.clipboard.writeText(text.value);
-    props.showAlert("Copied To Clipboard", "success");
+      props.showAlert("Copied to Clipboard!", "success");
   };
 
   const handleExtraSpaces = () => {
     let newText = text.split(/[  ]+/);
     setText(newText.join(" "));
-    props.showAlert("Removed Extra Spaces From Text" , "success");
+    if (!text.trim()) {
+      props.showAlert("Please write something!", "danger");
+    } else {
+      props.showAlert("Removed Extra Spaces", "success");
+    }
   };
 
   const handleOnChange = (event) => {
